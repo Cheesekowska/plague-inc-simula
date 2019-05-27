@@ -89,5 +89,16 @@ public class Environment {
 		}
 
 	}
+	public void createDisease(Disease disease)
+	{
+		String name=new String();
+		System.out.println("Podaj nazwe swojej choroby");
+		Scanner scan=new Scanner(System.in);
+		name=scan.nextLine();
+	
+		disease=new Disease(name);
+		disease.addWayOfInfection();
+		disease.addSymptom();
+	}
 
 }
