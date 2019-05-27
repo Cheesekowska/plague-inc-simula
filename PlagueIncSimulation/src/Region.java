@@ -19,16 +19,27 @@ public class Region extends Area {
 		}
 	}
 
-	public int infect() {
-		// matematyczna formułka
+	public int infect(List<WayOfInfection> list) {
+		double factorFromWays=0;
+		for (int i=0;i<list.size();i++)
+		{
+			factorFromWays+=this.humidity*list.get(i).tableOfFactors[0];
+			factorFromWays+=this.levelOfHygiene*list.get(i).tableOfFactors[1];
+			factorFromWays+=this.temperature*list.get(i).tableOfFactors[2];
+		}
 		return latelyInfectedPeople;
 	}
 
-	public int kill() {
-		// matematyczna formułka
+	public int kill(List<Symptom>list) {
+		double factorFromSymptoms=0;
+		for (int i=0;i<list.size();i++)
+		{
+			factorFromSymptoms+=this.humidity*list.get(i).tableOfFactors[0];
+			factorFromSymptoms+=this.levelOfHygiene*list.get(i).tableOfFactors[1];
+			factorFromSymptoms+=this.temperature*list.get(i).tableOfFactors[2];
+		}		
 		return latelyKilledPeople;
 	}
-
 	public long addInfected() {
 		sickPeople += latelyInfectedPeople;
 		return sickPeople;
