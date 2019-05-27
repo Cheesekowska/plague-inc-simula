@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Environment {
 
-	static List<Integer> numberOfPeople = new ArrayList<>();
+	static List<Long> numberOfPeople = new ArrayList<>();
 	static List<String> namesOfRegions = new ArrayList<>();
 	static List<String> namesOfContinents = new ArrayList<>();
 	static List<Region> tableOfRegions = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Environment {
 				string = line.split(";");
 				namesOfRegions.add(string[0]);
 				namesOfContinents.add(string[1]);
-				numberOfPeople.add(Integer.parseInt(string[2]));
+				numberOfPeople.add(Long.parseLong(string[2]));
 
 			}
 
@@ -49,8 +49,8 @@ public class Environment {
 		Region region;
 		for (int i = 0; i < namesOfRegions.size(); i++) {
 			Random r = new Random();
-			region = new Region(r.nextInt(5) + 1, r.nextInt(5) + 1, r.nextInt(5) + 1, numberOfPeople.get(i), 0, 0,
-					namesOfRegions.get(i), i);
+			region = new Region(r.nextDouble() + 1, r.nextDouble() + 1, r.nextDouble() + 1, numberOfPeople.get(i), 0, 0,
+					namesOfRegions.get(i), false, 0, 0, i);
 			tableOfRegions.add(region);
 		}
 	}
@@ -83,8 +83,8 @@ public class Environment {
 		Continent continent;
 		for (int i = 0; i < namesOfSingleContinents.size(); i++) {
 			Random r = new Random();
-			continent = new Continent(r.nextInt(5) + 1, r.nextInt(5) + 1, r.nextInt(5) + 1,
-					numberOfPeopleOnContinent.get(i), 0, 0, namesOfSingleContinents.get(i));
+			continent = new Continent(r.nextDouble() + 1, r.nextDouble() + 1, r.nextDouble() + 1,
+					numberOfPeopleOnContinent.get(i), 0, 0, namesOfSingleContinents.get(i), false, 0, 0);
 			tableOfContinents.add(continent);
 		}
 

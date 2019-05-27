@@ -1,16 +1,13 @@
 
 public class Region extends Area {
 
-	private String name;
 	private int number;
-	private boolean isInfected;
-	private int latelyInfectedPeople;
-	private int latelyKilledPeople;
 
-	public Region(double humidity, double temperature, double levelOfHygiene, int healthyPeople, int sickPeople,
-			int deadPeople, String name, int number) {
-		super(humidity, temperature, levelOfHygiene, healthyPeople, sickPeople, deadPeople);
-		this.name = name;
+	public Region(double humidity, double temperature, double levelOfHygiene, long healthyPeople, long sickPeople,
+			long deadPeople, String name, boolean isInfected, int latelyInfectedPeople, int latelyKilledPeople,
+			int number) {
+		super(humidity, temperature, levelOfHygiene, healthyPeople, sickPeople, deadPeople, name, isInfected,
+				latelyInfectedPeople, latelyKilledPeople);
 		this.number = number;
 	}
 
@@ -32,12 +29,12 @@ public class Region extends Area {
 		return latelyKilledPeople;
 	}
 
-	public int addInfected() {
+	public long addInfected() {
 		sickPeople += latelyInfectedPeople;
 		return sickPeople;
 	}
 
-	public int addKilled() {
+	public long addKilled() {
 		deadPeople += latelyKilledPeople;
 		return deadPeople;
 	}
