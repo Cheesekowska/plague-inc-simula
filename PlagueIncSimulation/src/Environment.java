@@ -10,13 +10,13 @@ import java.io.IOException;
 
 public class Environment {
 
-	static List<Long> numberOfPeople = new ArrayList<>();
-	static List<String> namesOfRegions = new ArrayList<>();
-	static List<String> namesOfContinents = new ArrayList<>();
-	static List<Region> tableOfRegions = new ArrayList<>();
-	static List<Continent> tableOfContinents = new ArrayList<>();
-	static List<String> namesOfSingleContinents = new ArrayList<>();
-	static List<Long> numberOfPeopleOnContinent = new ArrayList<>();
+	List<Long> numberOfPeople = new ArrayList<>();
+	List<String> namesOfRegions = new ArrayList<>();
+	List<String> namesOfContinents = new ArrayList<>();
+	List<Region> tableOfRegions = new ArrayList<>();
+	List<Continent> tableOfContinents = new ArrayList<>();
+	List<String> namesOfSingleContinents = new ArrayList<>();
+	List<Long> numberOfPeopleOnContinent = new ArrayList<>();
 
 	public void createEnvironment() {
 
@@ -50,8 +50,8 @@ public class Environment {
 		for (int i = 0; i < namesOfRegions.size(); i++) {
 			Random r = new Random();
 			region = new Region(r.nextDouble() + 1, r.nextDouble() + 1, r.nextDouble() + 1, numberOfPeople.get(i), 0, 0,
-					namesOfRegions.get(i), false, 0, 0, i);
-			tableOfRegions.add(region);
+					namesOfRegions.get(i), false, 0, 0, i, namesOfContinents.get(i));
+
 		}
 	}
 
@@ -89,14 +89,14 @@ public class Environment {
 		}
 
 	}
-	public void createDisease(Disease disease)
-	{
-		String name=new String();
+
+	public void createDisease(Disease disease) {
+		String name = new String();
 		System.out.println("Podaj nazwe swojej choroby");
-		Scanner scan=new Scanner(System.in);
-		name=scan.nextLine();
-	
-		disease=new Disease(name);
+		Scanner scan = new Scanner(System.in);
+		name = scan.nextLine();
+
+		disease = new Disease(name);
 		disease.addWayOfInfection();
 		disease.addSymptom();
 	}
