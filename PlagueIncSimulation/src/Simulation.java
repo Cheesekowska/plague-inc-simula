@@ -12,57 +12,28 @@ public class Simulation {
 
 	public static void main(String[] args) {
 
-		List<Integer> numberOfPeople = new ArrayList<>();
-		List<String> namesOfRegions = new ArrayList<>();
-		List<String> namesOfContinents = new ArrayList<>();
-		List<Region> tableOfRegions = new ArrayList<>();
-		List<Region> tableOfContinents = new ArrayList<>();
-		List<String> namesOfSingleContinents = new ArrayList<>();
-		List<Long> numberOfPeopleInContinent = new ArrayList<>();
+		// int simulationTick = 0;
 
-		String line;
-		String[] string;
-		try (BufferedReader br = new BufferedReader(new FileReader("importedData.csv"))) {
+		Environment env = new Environment();
 
-			while ((line = br.readLine()) != null) {
+		env.createEnvironment();
+		Region region = env.tableOfRegions.get(0);
 
-				string = line.split(";");
-				namesOfRegions.add(string[1]);
-				namesOfContinents.add(string[0]);
-				numberOfPeople.add(Integer.parseInt(string[2]));
+		region.setSickPeople(100);
 
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		//teściki kotleciki
+		// while (region.healthyPeople!=0) {
+		for (int i = 0; i < 10; i++) {
+			region.spreadOfDiseaseInRegion(env.tableOfRegions, env.disease.listOfWays, env.disease.listOfSymptoms, i);
+			// env.disease.initializeDisease(env.tableOfRegions, env.map);
+			//System.out.println("chory człowiek:" + region.sickPeople);
+			//System.out.println("zdro człowiek:" + region.healthyPeople);
+			// simulationTick++;
 		}
 
-		Continent continent;
-		long sumOfPeople = numberOfPeople.get(0);
-		String s1 = namesOfContinents.get(0);
-		namesOfSingleContinents.add(s1);
-		for (int i = 0; i < namesOfContinents.size() - 1; i++) {
-			s1 = namesOfContinents.get(i);
-			String s2 = namesOfContinents.get(i + 1);
-			if (s1.equals(s2)) {
-
-				long addedPeople = numberOfPeople.get(i + 1);
-				sumOfPeople += addedPeople;
-
-			} else {
-				namesOfSingleContinents.add(s2);
-				numberOfPeopleInContinent.add(sumOfPeople);
-				sumOfPeople = numberOfPeople.get(i + 1);
-
-			}
-			if (i==namesOfContinents.size() - 2) {
-				numberOfPeopleInContinent.add(sumOfPeople);
-			}
-
-		}
-
-		System.out.println(numberOfPeopleInContinent);
-		System.out.println(namesOfSingleContinents);
+		// Writer wr = new Writer();
+		// wr.CreateFileLista(env.tableOfRegions);
+		// wr.SaveTheFreakinData(env.tableOfRegions);
 
 	}
 

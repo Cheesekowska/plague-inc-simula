@@ -17,11 +17,16 @@ public class Environment {
 	List<Continent> tableOfContinents = new ArrayList<>();
 	List<String> namesOfSingleContinents = new ArrayList<>();
 	List<Long> numberOfPeopleOnContinent = new ArrayList<>();
+	Disease disease;
+	int map[][];
 
 	public void createEnvironment() {
 
 		uploadData();
-		createRegions();
+		createContinents();
+		createRegions(tableOfContinents);
+		createDisease();
+		map = MapOfConnections.createMapOfConnections(tableOfRegions);//
 
 	}
 
@@ -34,24 +39,15 @@ public class Environment {
 			while ((line = br.readLine()) != null) {
 
 				string = line.split(";");
-				namesOfRegions.add(string[0]);
-				namesOfContinents.add(string[1]);
+
+				namesOfContinents.add(string[0]);
+				namesOfRegions.add(string[1]);
 				numberOfPeople.add(Long.parseLong(string[2]));
 
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	public void createRegions() {
-		Region region;
-		for (int i = 0; i < namesOfRegions.size(); i++) {
-			Random r = new Random();
-			region = new Region(r.nextDouble() + 1, r.nextDouble() + 1, r.nextDouble() + 1, numberOfPeople.get(i), 0, 0,
-					namesOfRegions.get(i), false, 0, 0, i, namesOfContinents.get(i));
-
 		}
 	}
 
@@ -86,19 +82,54 @@ public class Environment {
 			continent = new Continent(r.nextDouble() + 1, r.nextDouble() + 1, r.nextDouble() + 1,
 					numberOfPeopleOnContinent.get(i), 0, 0, namesOfSingleContinents.get(i), false, 0, 0);
 			tableOfContinents.add(continent);
+
 		}
 
 	}
 
-	public void createDisease(Disease disease) {
+	public void createRegions(List<Continent> tableOfContinents) {
+		Region region;
+		for (int i = 0; i < namesOfRegions.size(); i++) {
+			Random r = new Random();
+			for (Continent continent : tableOfContinents) {
+				if (continent.getName().equals(namesOfContinents.get(i))) {
+
+					region = new Region(r.nextDouble() + 1, r.nextDouble() + 1, r.nextDouble() + 1,
+							numberOfPeople.get(i), 0, 0, namesOfRegions.get(i), false, 0, 0, i, continent);
+					tableOfRegions.add(region);
+
+					break; // nie break
+				}
+			}
+
+		}
+	}
+
+	public void createDisease() {
 		String name = new String();
-		System.out.println("Podaj nazwe swojej choroby");
+		System.out.println("Podaj nazwę swojej choroby: ");
 		Scanner scan = new Scanner(System.in);
 		name = scan.nextLine();
 
 		disease = new Disease(name);
 		disease.addWayOfInfection();
 		disease.addSymptom();
+		disease.addSymptom();
+		disease.addSymptom();
+		disease.addWayOfInfection();
+		disease.addWayOfInfection();
+	}
+
+	public List<Region> getTableOfRegions() {
+		return tableOfRegions;
+	}
+
+	public List<String> getNamesOfRegions() {
+		return namesOfRegions;
+	}
+
+	public List<String> getNamesOfSingleContinents() {
+		return namesOfSingleContinents;
 	}
 
 }
