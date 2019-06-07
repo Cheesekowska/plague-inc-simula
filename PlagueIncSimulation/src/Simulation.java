@@ -31,9 +31,10 @@ public class Simulation {
 	 * @param args Unused.
 	 * @return Nothing.
 	 * @exception IOException On input error
+	 * @throws InterruptedException
 	 */
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 
 		int simulationTick = 0;
 
@@ -55,24 +56,20 @@ public class Simulation {
 			}
 
 			for (Region region : env.tableOfRegions) {
-
-				System.out.println("\n");
-				System.out.println(region.getName());
-				System.out.println("zdro człowiek:" + region.healthyPeople);
-				System.out.println("latelyinf człowiek:" + region.latelyInfectedPeople);
-				System.out.println("chory człowiek:" + region.sickPeople);
-
 				region.spreadOfDiseaseInRegion(region, env.disease.listOfWays, env.disease.listOfSymptoms,
 						simulationTick);
+			}
+
+			for (Region region : env.tableOfRegions) {
 				if (simulationTick != 1) {
 					env.disease.initializeDisease(region, env.tableOfRegions, env.map);
 					env.disease.mutate();
 				}
 			}
-
-			wr.SaveTheData(env.tableOfRegions, simulationTick); // zle zapisuje się 1. tick
-
+			wr.SaveTheData(env.tableOfRegions, simulationTick);
 			isAnyoneAlive = env.isAnyoneThere(env.tableOfRegions);
 		}
+		System.out.println("Twoja choroba - " + env.disease.getName() + " - pokonała ludzkość w: " + simulationTick
+				+ " miesięcy!");
 	}
 }
