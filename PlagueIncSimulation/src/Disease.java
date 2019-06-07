@@ -54,6 +54,54 @@ public class Disease {
 		r1.continent.setHealthyPeople(r1.continent.getHealthyPeople() - r1.getLatelyInfectedPeople());
 		r1.continent.setSickPeople(r1.continent.getSickPeople() + r1.getLatelyInfectedPeople());
 	}
+	
+	public void startpointInitialize(List<Region> tableOfRegions) throws InterruptedException {
+		
+		/**
+		 * This method sets the values of disease name, starting region
+		 * number and initial value of people infected in this region.
+		 * 
+		 * @param tableOfRegions This is an array list of objects
+		 * of <i> Region </i> class.
+		 */
+
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Podaj nazwę swojej choroby: ");
+		String diseaseName = scan.nextLine();
+		this.name = diseaseName;
+
+		System.out.println("Który region zarażamy? (wybierz numer od 0 do 41)");
+		System.out.println("Spis regionów: ");
+		for (Region region : tableOfRegions) {
+			System.out.println(region.getNumber() + " - " + region.getName());
+		}
+		int chosenRegionNumber = scan.nextInt();
+		if (chosenRegionNumber < 0 && chosenRegionNumber > tableOfRegions.size()) {
+			System.out.println("Nie oszukuj!");
+			startpointInitialize(tableOfRegions);
+		}
+
+		System.out.println("Ile ludzików zarażamy? ");
+		long numberOfPeople = scan.nextLong();
+		if (numberOfPeople < 0 && numberOfPeople > tableOfRegions.get(chosenRegionNumber).getHealthyPeople()) {
+			System.out.println("Oszczędz kogoś! :C ");
+			startpointInitialize(tableOfRegions);
+		}
+
+		tableOfRegions.get(chosenRegionNumber).setLatelyInfectedPeople(numberOfPeople);
+		tableOfRegions.get(chosenRegionNumber).setSickPeople(numberOfPeople);
+		tableOfRegions.get(chosenRegionNumber)
+				.setHealthyPeople(tableOfRegions.get(chosenRegionNumber).getHealthyPeople()
+						- tableOfRegions.get(chosenRegionNumber).getLatelyInfectedPeople());
+
+		tableOfRegions.get(chosenRegionNumber).continent
+				.setHealthyPeople(tableOfRegions.get(chosenRegionNumber).continent.getHealthyPeople()
+						- tableOfRegions.get(chosenRegionNumber).getLatelyInfectedPeople());
+		tableOfRegions.get(chosenRegionNumber).continent
+				.setSickPeople(tableOfRegions.get(chosenRegionNumber).continent.getSickPeople()
+						+ tableOfRegions.get(chosenRegionNumber).getLatelyInfectedPeople());
+	}
 
 	public void mutate() {
 		
