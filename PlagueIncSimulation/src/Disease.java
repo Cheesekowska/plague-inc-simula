@@ -16,18 +16,38 @@ public class Disease {
 	}
 
 	public void addSymptom() {
+		
+		/**
+		 * This method adds new object of class <i>Symptom</i>
+		 * to an array list, which is then used by objects of class 
+		 * <i>Disease</i>.
+		 */
+		
 		Symptom symptom = new Symptom();
 		listOfSymptoms.add(symptom);
 	}
 
 	public void addWayOfInfection()
-
 	{
+
+		/**
+		 * This method adds new object of class <i>WayOfInfection</i>
+		 * to an array list of <i>WayOfInfection</i> objects,
+		 *  which is then used by <i>Disease</i> objects.
+		 */
+		
 		WayOfInfection way = new WayOfInfection();
 		listOfWays.add(way);
 	}
 	
 	public void startpointInitialize(List<Region> tableOfRegions) {
+		
+		/**
+		 * This method is used to initialize the disease in the first region.
+		 * @param tableOfRegions contains  a <i>List</i> object with alle the 
+		 * <i> Regions </i> in the simulation.
+		 */
+		
 		Region r1 = tableOfRegions.get(0);
 		r1.setSickPeople(100);
 		r1.setLatelyInfectedPeople(100);
@@ -36,6 +56,13 @@ public class Disease {
 	}
 
 	public void mutate() {
+		
+		/**
+		 * This method randomly (with ratio of 10%) adds new <i>Symptom</i> and <i>WayOfInfection</i> objects
+		 * to the <i>Disease</i> object.
+		 * 
+		 */
+		
 		Random r = new Random();
 		int a = r.nextInt(10);
 		if (a == 0) {
@@ -46,6 +73,18 @@ public class Disease {
 
 	public void initializeDisease(Region region, List<Region> tableOfRegions, int map[][]) {
 		if (region.isInfected) {
+			
+			/** 
+		 * This method initializes the <i>Disease</i> in a <i>region</i>. It means setting the 
+		 * first amount of <b> sickPeople </b>, and setting the <b>isInfected</b> field to 
+		 * TRUE value.
+		 * @param region is object of class <i> Region </i>, which gives the information,
+		 * which region to initialize.
+		 * @param tableOfRegions is an array list of all regions in the simulation
+		 * @param map is an array variable, which contains iformation about connections
+		 * between regions 
+		 */
+			
 			int i = region.getNumber();
 			for (int j = 0; j < tableOfRegions.size(); j++) {
 				if (map[i][j] == 1) {
