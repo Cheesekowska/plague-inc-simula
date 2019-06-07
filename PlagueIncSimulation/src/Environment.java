@@ -63,11 +63,10 @@ public class Environment {
 	}
 
 	public void createContinents() {
-		
+
 		/**
-		 * This method uses uploaded data to create objects of 
-		 * class <i>Continent</i>. Then it puts them into 
-		 * a <i>Continent</i> array list.
+		 * This method uses uploaded data to create objects of class <i>Continent</i>.
+		 * Then it puts them into a <i>Continent</i> array list.
 		 */
 
 		long sumOfPeople = numberOfPeople.get(0);
@@ -105,15 +104,15 @@ public class Environment {
 	}
 
 	public void createRegions(List<Continent> tableOfContinents) {
-		
+
 		/**
-		 * This method uses uploaded data to create objects of 
-		 * class <i>Region</i>. Then it puts them into 
-		 * a <i>Region</i> array list.
-		 * @param tableOfContinents This is the array list of objects
-		 * from <i>Continent</i> class.
+		 * This method uses uploaded data to create objects of class <i>Region</i>. Then
+		 * it puts them into a <i>Region</i> array list.
+		 * 
+		 * @param tableOfContinents This is an array list of objects from
+		 *                          <i>Continent</i> class.
 		 */
-		
+
 		Region region;
 		for (int i = 0; i < namesOfRegions.size(); i++) {
 			Random r = new Random();
@@ -124,7 +123,7 @@ public class Environment {
 							numberOfPeople.get(i), 0, 0, namesOfRegions.get(i), false, 0, 0, i, continent);
 					tableOfRegions.add(region);
 
-					break; // nie break
+					break;
 				}
 			}
 
@@ -132,12 +131,13 @@ public class Environment {
 	}
 
 	public void createDisease() {
-		String name = new String();
-		System.out.println("Podaj nazwę swojej choroby: ");
-		Scanner scan = new Scanner(System.in);
-		name = scan.nextLine();
-
-		disease = new Disease(name);
+		
+		/**
+		 * This method creates disease (object) that will spread 
+		 * in the simulation with certain parameters
+		 */
+		
+		disease = new Disease();
 		disease.addWayOfInfection();
 		disease.addSymptom();
 		disease.addSymptom();
@@ -147,6 +147,15 @@ public class Environment {
 	}
 
 	public boolean isAnyoneThere(List<Region> tableOfRegions) {
+		
+		/**
+		 * Checks if there is still a positive value of
+		 * healthy people in certain region
+		 * 
+		 * @param tableOfRegions This is an array list of objects from
+		 *                          <i>Region</i> class.
+		 */
+		
 		boolean isAnyoneAlive = true;
 		boolean areThereHealthy = false;
 		boolean areThereSick = false;
