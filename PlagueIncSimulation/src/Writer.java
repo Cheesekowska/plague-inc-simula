@@ -10,7 +10,7 @@ public class Writer {
 
 	public void CreateFileLista(List<Region> lista) {
 
-		try (PrintWriter writer = new PrintWriter(new File("test.csv"))) {
+		try (PrintWriter writer = new PrintWriter(new File("exportedData.csv"))) {
 
 			StringBuilder sb = new StringBuilder();
 			sb.append("Region;");
