@@ -6,12 +6,11 @@ public class Continent extends Area {
 
 	Continent(double humidity, double temperature, double levelOfHygiene, long healthyPeople, long sickPeople,
 			long deadPeople, String name, boolean isInfected, int latelyInfectedPeople, int latelyKilledPeople) {
-	
-		super(humidity, temperature,  levelOfHygiene,  healthyPeople,  sickPeople,
-				 deadPeople,  name,  isInfected,  latelyInfectedPeople,  latelyKilledPeople); // czy parametry dodać?
+
+		super(humidity, temperature, levelOfHygiene, healthyPeople, sickPeople, deadPeople, name, isInfected,
+				latelyInfectedPeople, latelyKilledPeople); // czy parametry dodać?
 
 	}
-
 
 	public void spreadOfDiseaseOnContinent(List<Continent> tableOfContinents, List<Region> tableOfRegions) {
 		for (Continent continent : tableOfContinents) {
@@ -22,28 +21,20 @@ public class Continent extends Area {
 		}
 	}
 
-	public boolean isHalfOfPopulationSick(Continent continent) { // sprawdzanie czy jest już zarażenie
+	public boolean isHalfOfPopulationSick(Continent continent) {
 
 		long continentPopulation = continent.getDeadPeople() + continent.getHealthyPeople() + continent.getSickPeople();
 		if (continent.getSickPeople() >= 0.5 * continentPopulation) {
 			return true;
 		}
-
-//		for (int continentId = 0; continentId < tableOfContinents.size(); continentId++) {
-//			long continentPopulation = tableOfContinents.get(continentId).getDeadPeople()
-//					+ tableOfContinents.get(continentId).getHealthyPeople()
-//					+ tableOfContinents.get(continentId).getSickPeople();
-//			if (tableOfContinents.get(continentId).getSickPeople() >= (0.5 * continentPopulation)) {
-//				return continentId;
-//			}
-//		}
+		
 		return false;
 	}
 
 	public List<Region> helpfulList(List<Region> tableOfRegions) {
 		List<Region> helpfulList = new ArrayList<>();
 		for (Region region : tableOfRegions) {
-			if (region.continent.name.equals(name)) {  //wait what, może być zle ale bedzie dobrze
+			if (region.continent.name.equals(name)) { // wait what, może być zle ale bedzie dobrze
 				helpfulList.add(region);
 			}
 		}

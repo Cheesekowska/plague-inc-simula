@@ -8,6 +8,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The Environment class has methods that create basics of simulation, which are
+ * objects of classes: Region, Continent and Disease.
+ *
+ */
 public class Environment {
 
 	List<Long> numberOfPeople = new ArrayList<>();
@@ -21,7 +26,9 @@ public class Environment {
 	int map[][];
 
 	public void createEnvironment() {
-
+		/**
+		 * This method is a manager to all the methods included in class Environment.
+		 */
 		uploadData();
 		createContinents();
 		createRegions(tableOfContinents);
@@ -31,6 +38,10 @@ public class Environment {
 	}
 
 	public void uploadData() {
+		/**
+		 * This method takes the data written in <i>.csv</i> file and puts it in several
+		 * array lists for further usage.
+		 */
 
 		String line;
 		String[] string;
@@ -52,6 +63,12 @@ public class Environment {
 	}
 
 	public void createContinents() {
+		
+		/**
+		 * This method uses uploaded data to create objects of 
+		 * class <i>Continent</i>. Then it puts them into 
+		 * a <i>Continent</i> array list.
+		 */
 
 		long sumOfPeople = numberOfPeople.get(0);
 		String s1 = namesOfContinents.get(0);
@@ -88,6 +105,15 @@ public class Environment {
 	}
 
 	public void createRegions(List<Continent> tableOfContinents) {
+		
+		/**
+		 * This method uses uploaded data to create objects of 
+		 * class <i>Region</i>. Then it puts them into 
+		 * a <i>Region</i> array list.
+		 * @param tableOfContinents This is the array list of objects
+		 * from <i>Continent</i> class.
+		 */
+		
 		Region region;
 		for (int i = 0; i < namesOfRegions.size(); i++) {
 			Random r = new Random();
@@ -118,6 +144,26 @@ public class Environment {
 		disease.addSymptom();
 		disease.addWayOfInfection();
 		disease.addWayOfInfection();
+	}
+
+	public boolean isAnyoneThere(List<Region> tableOfRegions) {
+		boolean isAnyoneAlive = true;
+		boolean areThereHealthy = false;
+		boolean areThereSick = false;
+
+		for (Region region : tableOfRegions) {
+			if (region.getHealthyPeople() != 0) {
+				areThereHealthy = true;
+			}
+			if (region.getSickPeople() != 0) {
+				areThereHealthy = true;
+			}
+		}
+
+		if (areThereHealthy == false && areThereSick == false) {
+			isAnyoneAlive = false;
+		}
+		return isAnyoneAlive;
 	}
 
 	public List<Region> getTableOfRegions() {
